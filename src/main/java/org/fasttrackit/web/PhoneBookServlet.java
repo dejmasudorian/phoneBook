@@ -1,7 +1,9 @@
 package org.fasttrackit.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.fasttrackit.domain.PhoneBook;
 import org.fasttrackit.service.PhoneBookService;
+import org.fasttrackit.transfer.CreatePhoneBook;
 import org.fasttrackit.transfer.PhoneBookListResponse;
 
 import javax.servlet.ServletException;
@@ -34,4 +36,44 @@ public class PhoneBookServlet extends HttpServlet{
         }
     }
 
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        CreatePhoneBook phoneBookRequest =
+                objectMapper.readValue(req.getReader(), CreatePhoneBook.class);
+
+        try {
+            phoneBookService.createPhoneBook(phoneBookRequest);
+        } catch (Exception e) {
+            resp.sendError(500, "Internal error: " + e.getMessage());
+        }
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        CreatePhoneBook phoneBookRequest =
+                objectMapper.readValue(req.getReader(), CreatePhoneBook.class);
+
+        try {
+            phoneBookService.updatePhoneBook(phoneBookRequest);
+        } catch (Exception e) {
+            resp.sendError(500, "Internal error: " + e.getMessage());
+        }
+
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        CreatePhoneBook phoneBookRequest =
+                objectMapper.readValue(req.getReader(), CreatePhoneBook.class);
+
+        try {
+            phoneBookService.deletePhoneBook(phoneBookRequest, phoneBookRequest.getFirst_name());
+        } catch (Exception e) {
+            resp.sendError(500, "Internal error: " + e.getMessage());
+        }
+
+    }
 }

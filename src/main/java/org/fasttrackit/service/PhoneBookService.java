@@ -2,6 +2,7 @@ package org.fasttrackit.service;
 
 import org.fasttrackit.domain.PhoneBook;
 import org.fasttrackit.persistence.PhoneBookRepository;
+import org.fasttrackit.transfer.CreatePhoneBook;
 import org.fasttrackit.transfer.PhoneBookListResponse;
 
 import java.io.IOException;
@@ -13,9 +14,9 @@ public class PhoneBookService {
     private PhoneBookRepository phoneBookRepository =
             new PhoneBookRepository();
 
-    public void createPhoneBook(PhoneBook phoneBook) throws SQLException, IOException, ClassNotFoundException {
-        System.out.println("Creating phone book numbers: " + phoneBook);
-        phoneBookRepository.createPhoneBook(phoneBook);
+    public void createPhoneBook(CreatePhoneBook createPhoneBook) throws SQLException, IOException, ClassNotFoundException {
+        System.out.println("Creating phone book numbers: " + createPhoneBook);
+        phoneBookRepository.createPhoneBook(createPhoneBook);
     }
 
     public PhoneBookListResponse getPhoneBook() throws SQLException, IOException, ClassNotFoundException {
@@ -29,18 +30,18 @@ public class PhoneBookService {
         return phoneBookRepository.getPhoneBook();
     }
 
-    public void updatePhoneBook(PhoneBook phoneBook) throws SQLException, IOException, ClassNotFoundException {
-        System.out.println("Updating phone book entry." + phoneBook);
-        phoneBookRepository.updatePhoneBook(phoneBook);
+    public void updatePhoneBook(CreatePhoneBook update) throws SQLException, IOException, ClassNotFoundException {
+        System.out.println("Updating phone book entry." + update);
+        phoneBookRepository.updatePhoneBook(update);
     }
 
-    public void deletePhoneBook(PhoneBook phoneBook,String name) throws SQLException, IOException, ClassNotFoundException {
-        System.out.println("Deleting phone book entry." + phoneBook);
-        phoneBookRepository.deletePhoneBook(phoneBook, name);
+    public void deletePhoneBook(CreatePhoneBook delete,String name) throws SQLException, IOException, ClassNotFoundException {
+        System.out.println("Deleting phone book entry." + delete);
+        phoneBookRepository.deletePhoneBook(delete, name);
     }
 
-    public void deleteMultiplePhoneBook(PhoneBook phoneBook,String letter) throws SQLException, IOException, ClassNotFoundException {
-        System.out.println("Deleting phone book entry." + phoneBook);
-        phoneBookRepository.deleteMultiplePhoneBook(phoneBook, letter);
+    public void deleteMultiplePhoneBook(CreatePhoneBook deleteM,String letter) throws SQLException, IOException, ClassNotFoundException {
+        System.out.println("Deleting phone book entry." + deleteM);
+        phoneBookRepository.deleteMultiplePhoneBook(deleteM, letter);
     }
 }

@@ -4,18 +4,18 @@ import org.fasttrackit.domain.PhoneBook;
 
 import java.util.List;
 
-public class PhoneBookListResponse {
+public class CreatePhoneBook {
     private long id;
     private String first_name;
     private String last_name;
     private String phone_number;
     private List<PhoneBook> content;
 
-    public PhoneBookListResponse(List<PhoneBook> content) {
+    public CreatePhoneBook(List<PhoneBook> content) {
         this.content = content;
     }
 
-    public PhoneBookListResponse() {
+    public CreatePhoneBook() {
         // used for unmarshalling
     }
 

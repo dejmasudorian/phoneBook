@@ -2,6 +2,7 @@ package org.fasttrackit;
 
 import org.fasttrackit.domain.PhoneBook;
 import org.fasttrackit.service.PhoneBookService;
+import org.fasttrackit.transfer.CreatePhoneBook;
 
 import java.util.InputMismatchException;
 import java.util.List;
@@ -11,6 +12,7 @@ public class Contact {
 
     private PhoneBook phoneBook;
     private PhoneBookService phoneBookService;
+    private CreatePhoneBook createPhoneBook;
 
 
 
@@ -25,7 +27,6 @@ public class Contact {
         System.out.println();
         System.out.println("If you wish to find a person in the Phone Book, please type the First name or Last Name:");
         String name = typeStringFromUser();
-        insertPhoneBook(name);
         System.out.println("If you wish to edit an existing contact in the phone book please enter:");
         System.out.println("1 for Yes;");
         System.out.println("0 for No.");
@@ -46,7 +47,8 @@ public class Contact {
         {
             System.out.println("Please enter the First Name of the contact you wish to delete.");
             String nameDel = typeStringFromUser();
-            phoneBookService.deletePhoneBook(this.phoneBook, nameDel);
+            CreatePhoneBook createPhoneBook = new CreatePhoneBook();
+            phoneBookService.deletePhoneBook(createPhoneBook, nameDel);
             phoneBookService.readPhoneBook();
         } else if (verifyDel == 0) System.out.println("No delete required.");
 
@@ -58,7 +60,7 @@ public class Contact {
         {
             System.out.println("Please enter the first Letter of names you wish to delete from the list.");
             String nameMulDel = typeStringFromUser();
-            phoneBookService.deletePhoneBook(this.phoneBook, nameMulDel);
+            phoneBookService.deleteMultiplePhoneBook(createPhoneBook, nameMulDel);
             phoneBookService.readPhoneBook();
         } else if (verifyMulDel == 0) System.out.println("No delete required.");
 
@@ -80,23 +82,6 @@ public class Contact {
         return phoneBook;
     }
 
-    public void insertPhoneBook(String name) throws Exception {
-        List<PhoneBook> phoneBooks = phoneBookService.readPhoneBook();
-        PhoneBook phoneBook1 = phoneBooks.stream().filter(a -> a.getFirst_name().equals(name)).findFirst().orElse(null);
-        PhoneBook phoneBook2 = phoneBooks.stream().filter(a -> a.getLast_name().equals(name)).findFirst().orElse(null);
-        if (phoneBook1 == null)
-        {
-            phoneBook1 = createPhoneBookInTable();
-            phoneBookService.createPhoneBook(phoneBook1);
-        }
-        else this.phoneBook = phoneBook1;
-        if(phoneBook2 == null)
-        {
-            phoneBook2 = createPhoneBookInTable();
-            phoneBookService.createPhoneBook(phoneBook2);
-        }
-        else this.phoneBook = phoneBook2;
-    }
 
     public void editPhoneBook(String name) throws Exception {
         List<PhoneBook> phoneBooks = phoneBookService.readPhoneBook();
@@ -104,7 +89,7 @@ public class Contact {
         if (phoneBook == null)
         {
             phoneBook = createPhoneBookInTable();
-            phoneBookService.updatePhoneBook(phoneBook);}
+            phoneBookService.updatePhoneBook(createPhoneBook);}
         this.phoneBook = phoneBook;
     }
 
