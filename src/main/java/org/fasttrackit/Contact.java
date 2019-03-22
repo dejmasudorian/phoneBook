@@ -12,8 +12,6 @@ public class Contact {
 
     private PhoneBook phoneBook;
     private PhoneBookService phoneBookService;
-    private CreatePhoneBook createPhoneBook;
-
 
 
 
@@ -26,6 +24,8 @@ public class Contact {
         phoneBookService.readPhoneBook();
         System.out.println();
         System.out.println("If you wish to find a person in the Phone Book, please type the First name or Last Name:");
+        String name = typeStringFromUser();
+        insertPhoneBook(name);
         System.out.println("If you wish to edit an existing contact in the phone book please enter:");
         System.out.println("1 for Yes;");
         System.out.println("0 for No.");
@@ -78,13 +78,32 @@ public class Contact {
         phoneBook.setLast_name(typeStringFromUser());
         System.out.println("Phone number:");
         phoneBook.setPhone_number(typeStringFromUser());
+        System.out.println("Email:");
+        phoneBook.setEmail(typeStringFromUser());
 
         return phoneBook;
     }
 
+    public void insertPhoneBook(String name) throws Exception {
+        List<PhoneBook> phoneBooks = phoneBookService.readPhoneBook();
+        PhoneBook phoneBook1 = phoneBooks.stream().filter(a -> a.getFirst_name().equals(name)).findFirst().orElse(null);
+        PhoneBook phoneBook2 = phoneBooks.stream().filter(a -> a.getLast_name().equals(name)).findFirst().orElse(null);
+        CreatePhoneBook createPhoneBook = new CreatePhoneBook();
+        if (phoneBook1 == null)
+        {
+            phoneBookService.createPhoneBook(createPhoneBook);
+        }
+        else this.phoneBook = phoneBook1;
+        if(phoneBook2 == null)
+        {
+            phoneBookService.createPhoneBook(createPhoneBook);
+        }
+        else this.phoneBook = phoneBook2;
+    }
 
     public void editPhoneBook(String name) throws Exception {
         List<PhoneBook> phoneBooks = phoneBookService.readPhoneBook();
+        CreatePhoneBook createPhoneBook = new CreatePhoneBook();
         PhoneBook phoneBook = phoneBooks.stream().filter(a -> a.getFirst_name().equals(name)).findFirst().orElse(null);
         if (phoneBook == null)
         {

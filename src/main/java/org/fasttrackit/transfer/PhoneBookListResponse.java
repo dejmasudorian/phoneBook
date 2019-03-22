@@ -9,6 +9,7 @@ public class PhoneBookListResponse {
     private String first_name;
     private String last_name;
     private String phone_number;
+    private String email;
     private List<PhoneBook> content;
 
     public PhoneBookListResponse(List<PhoneBook> content) {
@@ -59,13 +60,23 @@ public class PhoneBookListResponse {
         this.phone_number = phone_number;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     @Override
     public String toString() {
-        return "PhoneBook{" +
+        return "PhoneBookListResponse{" +
                 "id=" + id +
                 ", first_name='" + first_name + '\'' +
                 ", last_name='" + last_name + '\'' +
-                ", phone_book='" + phone_number + '\'' +
+                ", phone_number='" + phone_number + '\'' +
+                ", email='" + email + '\'' +
+                ", content=" + content +
                 '}';
     }
 }

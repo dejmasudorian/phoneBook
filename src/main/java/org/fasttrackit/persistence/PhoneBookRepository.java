@@ -12,7 +12,7 @@ public class PhoneBookRepository {
 
     public void createPhoneBook(CreatePhoneBook createPhoneBook) throws SQLException, IOException, ClassNotFoundException {
         try (Connection connection = DatabaseConfiguration.getConnection()) {
-            String insertSql = "INSERT INTO phone_book (id, first_name, last_name, `phone_number`) VALUES (?,?,?,?);";
+            String insertSql = "INSERT INTO phone_book (id, first_name, last_name, `phone_number` , `email`) VALUES (?,?,?,?);";
 
             PreparedStatement preparedStatement = connection.prepareStatement(insertSql);
             preparedStatement.setLong(1, createPhoneBook.getId());
@@ -27,7 +27,7 @@ public class PhoneBookRepository {
     public List<PhoneBook> getPhoneBook() throws SQLException, IOException, ClassNotFoundException {
         try (Connection connection = DatabaseConfiguration.getConnection()) {
             String query =
-                    "SELECT id, first_name, last_name, `phone_number` FROM phone_book ORDER BY id ASC;";
+                    "SELECT id, first_name, last_name, `phone_number`, `email` FROM phone_book ORDER BY id ASC;";
 
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -40,6 +40,7 @@ public class PhoneBookRepository {
                 phoneBook.setFirst_name(resultSet.getString("first_name"));
                 phoneBook.setLast_name(resultSet.getString("last_name"));
                 phoneBook.setPhone_number(resultSet.getString("phone_number"));
+                phoneBook.setEmail(resultSet.getString("email"));
 
 
                 response.add(phoneBook);
@@ -51,12 +52,8 @@ public class PhoneBookRepository {
 
         public void updatePhoneBook (CreatePhoneBook phoneBook) throws SQLException, IOException, ClassNotFoundException {
            try (Connection connection = DatabaseConfiguration.getConnection()) {
-               String insertSql = "UPDATE phone_book SET id = ? , first_name = ?, last_name = ?, `phone_number`=? WHERE first_name=?;";
+               String insertSql = "UPDATE phone_book SET id = ? , first_name = ?, last_name = ?, `phone_number`=?, `email`=? WHERE id=?;";
                PreparedStatement preparedStatement = connection.prepareStatement(insertSql);
-               preparedStatement.setLong(1, phoneBook.getId());
-               preparedStatement.setString(2, phoneBook.getFirst_name());
-               preparedStatement.setString(3, phoneBook.getLast_name());
-               preparedStatement.setString(4, phoneBook.getPhone_number());
                preparedStatement.executeUpdate();
 
            }

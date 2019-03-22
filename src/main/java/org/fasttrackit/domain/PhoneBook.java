@@ -6,6 +6,15 @@ public class PhoneBook {
     private String first_name;
     private String last_name;
     private String phone_number;
+    private String email;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public long getId() {
         return id;
@@ -45,7 +54,8 @@ public class PhoneBook {
                 "id=" + id +
                 ", first_name='" + first_name + '\'' +
                 ", last_name='" + last_name + '\'' +
-                ", phone_book='" + phone_number + '\'' +
+                ", phone_number='" + phone_number + '\'' +
+                ", email='" + email + '\'' +
                 '}';
     }
 }

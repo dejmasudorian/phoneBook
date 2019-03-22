@@ -9,6 +9,9 @@ public class CreatePhoneBook {
     private String first_name;
     private String last_name;
     private String phone_number;
+    private String email;
+
+
     private List<PhoneBook> content;
 
     public CreatePhoneBook(List<PhoneBook> content) {
@@ -19,6 +22,13 @@ public class CreatePhoneBook {
         // used for unmarshalling
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
     public List<PhoneBook> getContent() {
         return content;
     }
@@ -61,11 +71,13 @@ public class CreatePhoneBook {
 
     @Override
     public String toString() {
-        return "PhoneBook{" +
+        return "CreatePhoneBook{" +
                 "id=" + id +
                 ", first_name='" + first_name + '\'' +
                 ", last_name='" + last_name + '\'' +
-                ", phone_book='" + phone_number + '\'' +
+                ", phone_number='" + phone_number + '\'' +
+                ", email='" + email + '\'' +
+                ", content=" + content +
                 '}';
     }
 }
