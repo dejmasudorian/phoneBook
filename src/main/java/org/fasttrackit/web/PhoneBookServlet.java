@@ -1,7 +1,6 @@
 package org.fasttrackit.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.fasttrackit.domain.PhoneBook;
 import org.fasttrackit.service.PhoneBookService;
 import org.fasttrackit.transfer.CreatePhoneBook;
 import org.fasttrackit.transfer.PhoneBookListResponse;
@@ -75,5 +74,18 @@ public class PhoneBookServlet extends HttpServlet{
             resp.sendError(500, "Internal error: " + e.getMessage());
         }
 
+    }
+
+    @Override
+    protected void doOptions(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        setAccessControlHeaders(resp);
+        resp.setStatus(HttpServletResponse.SC_OK);
+    }
+
+    private void setAccessControlHeaders(HttpServletResponse resp) {
+        resp.setHeader("Access-Control-Allow-Origin", "*");
+        resp.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE");
+        resp.setHeader("Access-Control-Allow-Headers", "Content-Type");
     }
 }

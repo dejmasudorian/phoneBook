@@ -26,7 +26,6 @@ public class Contact {
         phoneBookService.readPhoneBook();
         System.out.println();
         System.out.println("If you wish to find a person in the Phone Book, please type the First name or Last Name:");
-        String name = typeStringFromUser();
         System.out.println("If you wish to edit an existing contact in the phone book please enter:");
         System.out.println("1 for Yes;");
         System.out.println("0 for No.");
@@ -60,6 +59,7 @@ public class Contact {
         {
             System.out.println("Please enter the first Letter of names you wish to delete from the list.");
             String nameMulDel = typeStringFromUser();
+            CreatePhoneBook createPhoneBook = new CreatePhoneBook();
             phoneBookService.deleteMultiplePhoneBook(createPhoneBook, nameMulDel);
             phoneBookService.readPhoneBook();
         } else if (verifyMulDel == 0) System.out.println("No delete required.");
