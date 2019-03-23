@@ -26,6 +26,7 @@ public class PhoneBookServlet extends HttpServlet{
             String responseJson = objectMapper.writeValueAsString(phoneBook);
 
             resp.setContentType("application/json");
+            setAccessControlHeaders(resp);
             resp.getWriter().print(responseJson);
             resp.getWriter().flush();
 
@@ -40,6 +41,7 @@ public class PhoneBookServlet extends HttpServlet{
         ObjectMapper objectMapper = new ObjectMapper();
         CreatePhoneBook phoneBookRequest =
                 objectMapper.readValue(req.getReader(), CreatePhoneBook.class);
+        setAccessControlHeaders(resp);
 
         try {
             phoneBookService.createPhoneBook(phoneBookRequest);
@@ -53,6 +55,7 @@ public class PhoneBookServlet extends HttpServlet{
         ObjectMapper objectMapper = new ObjectMapper();
         CreatePhoneBook phoneBookRequest =
                 objectMapper.readValue(req.getReader(), CreatePhoneBook.class);
+        setAccessControlHeaders(resp);
 
         try {
             phoneBookService.updatePhoneBook(phoneBookRequest);
@@ -67,6 +70,7 @@ public class PhoneBookServlet extends HttpServlet{
         ObjectMapper objectMapper = new ObjectMapper();
         CreatePhoneBook phoneBookRequest =
                 objectMapper.readValue(req.getReader(), CreatePhoneBook.class);
+        setAccessControlHeaders(resp);
 
         try {
             phoneBookService.deletePhoneBook(phoneBookRequest, phoneBookRequest.getFirst_name());
@@ -86,6 +90,6 @@ public class PhoneBookServlet extends HttpServlet{
     private void setAccessControlHeaders(HttpServletResponse resp) {
         resp.setHeader("Access-Control-Allow-Origin", "*");
         resp.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE");
-        resp.setHeader("Access-Control-Allow-Headers", "Content-Type");
+        resp.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     }
 }
