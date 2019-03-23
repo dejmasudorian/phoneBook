@@ -12,13 +12,13 @@ public class PhoneBookRepository {
 
     public void createPhoneBook(CreatePhoneBook createPhoneBook) throws SQLException, IOException, ClassNotFoundException {
         try (Connection connection = DatabaseConfiguration.getConnection()) {
-            String insertSql = "INSERT INTO phone_book (id, first_name, last_name, `phone_number` , `email`) VALUES (?,?,?,?);";
+            String insertSql = "INSERT INTO phone_book ( first_name, last_name, `phone_number` , `email`) VALUES (?,?,?,?);";
 
             PreparedStatement preparedStatement = connection.prepareStatement(insertSql);
-            preparedStatement.setLong(1, createPhoneBook.getId());
-            preparedStatement.setString(2, createPhoneBook.getFirst_name());
-            preparedStatement.setString(3, createPhoneBook.getLast_name());
-            preparedStatement.setString(4, createPhoneBook.getPhone_number());
+            preparedStatement.setString(1, createPhoneBook.getFirst_name());
+            preparedStatement.setString(2, createPhoneBook.getLast_name());
+            preparedStatement.setString(3, createPhoneBook.getPhone_number());
+            preparedStatement.setString(4, createPhoneBook.getEmail());
 
             preparedStatement.executeUpdate();
         }
@@ -59,9 +59,9 @@ public class PhoneBookRepository {
            }
         }
 
-    public void deletePhoneBook (CreatePhoneBook phoneBook, String name) throws SQLException, IOException, ClassNotFoundException {
+    public void deletePhoneBook (String id) throws SQLException, IOException, ClassNotFoundException {
        try (Connection connection = DatabaseConfiguration.getConnection()) {
-           String insertSql = "DELETE FROM phone_book WHERE first_name="+name+";";
+           String insertSql = "DELETE FROM phone_book WHERE id="+id+";";
            PreparedStatement preparedStatement = connection.prepareStatement(insertSql);
            preparedStatement.executeUpdate();
        }

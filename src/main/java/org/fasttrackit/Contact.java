@@ -44,10 +44,9 @@ public class Contact {
         int verifyDel = typeIntFromUser();
         if (verifyDel == 1)
         {
-            System.out.println("Please enter the First Name of the contact you wish to delete.");
-            String nameDel = typeStringFromUser();
-            CreatePhoneBook createPhoneBook = new CreatePhoneBook();
-            phoneBookService.deletePhoneBook(createPhoneBook, nameDel);
+            System.out.println("Please enter the id of the contact you wish to delete.");
+            String id = typeStringFromUser();
+            phoneBookService.deletePhoneBook(id);
             phoneBookService.readPhoneBook();
         } else if (verifyDel == 0) System.out.println("No delete required.");
 

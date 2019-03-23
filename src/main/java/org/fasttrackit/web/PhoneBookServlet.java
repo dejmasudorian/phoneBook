@@ -41,10 +41,17 @@ public class PhoneBookServlet extends HttpServlet{
         ObjectMapper objectMapper = new ObjectMapper();
         CreatePhoneBook phoneBookRequest =
                 objectMapper.readValue(req.getReader(), CreatePhoneBook.class);
-        setAccessControlHeaders(resp);
+
 
         try {
+
             phoneBookService.createPhoneBook(phoneBookRequest);
+            resp.setContentType("application/json");
+            setAccessControlHeaders(resp);
+            String responseJson = objectMapper.writeValueAsString(phoneBookRequest);
+            resp.getWriter().print(responseJson);
+            resp.getWriter().flush();
+
         } catch (Exception e) {
             resp.sendError(500, "Internal error: " + e.getMessage());
         }
@@ -68,12 +75,12 @@ public class PhoneBookServlet extends HttpServlet{
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        CreatePhoneBook phoneBookRequest =
-                objectMapper.readValue(req.getReader(), CreatePhoneBook.class);
+        String id = req.getParameter("id");
+
         setAccessControlHeaders(resp);
 
         try {
-            phoneBookService.deletePhoneBook(phoneBookRequest, phoneBookRequest.getFirst_name());
+            phoneBookService.deletePhoneBook(id);
         } catch (Exception e) {
             resp.sendError(500, "Internal error: " + e.getMessage());
         }

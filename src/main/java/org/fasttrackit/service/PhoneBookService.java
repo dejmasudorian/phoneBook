@@ -35,9 +35,9 @@ public class PhoneBookService {
         phoneBookRepository.updatePhoneBook(update);
     }
 
-    public void deletePhoneBook(CreatePhoneBook delete,String name) throws SQLException, IOException, ClassNotFoundException {
-        System.out.println("Deleting phone book entry." + delete);
-        phoneBookRepository.deletePhoneBook(delete, name);
+    public void deletePhoneBook(String id) throws SQLException, IOException, ClassNotFoundException {
+        System.out.println("Deleting phone book entry." + id);
+        phoneBookRepository.deletePhoneBook(id);
     }
 
     public void deleteMultiplePhoneBook(CreatePhoneBook deleteM,String letter) throws SQLException, IOException, ClassNotFoundException {
